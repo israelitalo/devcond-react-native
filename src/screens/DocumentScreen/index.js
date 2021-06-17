@@ -6,7 +6,7 @@ import C from './style'; //C of Component
 import colors from '../../theme/colors';
 import { useStateValue } from '../../contexts/StateContext';
 import api from '../../services/api';
-import { WallItem } from '../../components'
+import { DocumentItem } from '../../components'
 
 export default () => {
 
@@ -14,41 +14,41 @@ export default () => {
     const [context, dispatch] = useStateValue();
 
     const [loading, setLoading] = useState(true);
-    const [walls, setWalls] = useState([]);
+    const [docs, setDocs] = useState([]);
 
     useEffect(() => {
-        navigation.setOptions({ headerTitle: 'Mural de Avisos' });
-        getWall();
+        navigation.setOptions({ headerTitle: 'Documentos do condomínio' });
+        getDocs();
     }, []);
 
-    const getWall = async () => {
-        setWalls([]);
+    const getDocs = async () => {
+        setDocs([]);
 
         setLoading(true);
 
-        const result = await api.getWall();
+        const result = await api.getDocs();
 
         if (result.error !== '') return Alert.alert('Ops...', result.error);
 
-        setWalls(result.list);
+        setDocs(result.list);
 
         setLoading(false);
     }
 
     return (
         <C.Container>
-            {!loading && !walls.length &&
+            {!loading && !docs.length &&
                 <C.NoListArea>
-                    <C.NoListText>Não há avisos.</C.NoListText>
+                    <C.NoListText>Não há documentos.</C.NoListText>
                 </C.NoListArea>
             }
-            {!loading && walls.length > 0 &&
-                <C.ListWalls
-                    data={walls}
-                    onRefresh={getWall}
+            {!loading && docs.length > 0 &&
+                <C.ListDocs
+                    data={docs}
+                    onRefresh={getDocs}
                     refreshing={loading}
-                    renderItem={(wall) => <WallItem data={wall} />}
-                    keyExtractor={(wall) => wall.id.toString()}
+                    renderItem={(item) => <DocumentItem data={item} />}
+                    keyExtractor={(item) => item.id.toString()}
                 />
             }
         </C.Container>

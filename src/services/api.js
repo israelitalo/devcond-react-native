@@ -65,5 +65,26 @@ export default {
         let token = await AsyncStorage.getItem('token');
         let json = await request('post', `/wall/${id}/like`, {}, token);
         return json;
+    },
+    getDocs: async () => {
+        let token = await AsyncStorage.getItem('token');
+        let json = await request('get', '/docs', {}, token);
+        return json;
+    },
+    getBillets: async () => {
+        let token = await AsyncStorage.getItem('token');
+        let property = await AsyncStorage.getItem('property');
+        property = JSON.parse(property);
+        let params = { property: property.id };
+        let json = await request('get', '/billets', params, token);
+        return json;
+    },
+    getWarnings: async () => {
+        let token = await AsyncStorage.getItem('token');
+        let property = await AsyncStorage.getItem('property');
+        property = JSON.parse(property);
+        let params = { property: property.id };
+        let json = await request('get', '/warnings', params, token);
+        return json;
     }
 }

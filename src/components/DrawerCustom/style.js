@@ -62,13 +62,13 @@ export default {
         width: 5px;
         height: 100%;
         margin-right: 20px;
-        background-color: transparent;
+        background-color: ${(props) => props.active ? colors.violetIcon : 'transparent'};
         border-top-right-radius: 5px;
         border-bottom-right-radius: 5px;
     `,
     MenuButtonText: styled.Text`
         font-size: 15px;
         margin-left: 10px;
-        color: ${colors.iconEngine};
+        color: ${(props) => props.active ? colors.violetIcon : colors.iconEngine};
     `
 };

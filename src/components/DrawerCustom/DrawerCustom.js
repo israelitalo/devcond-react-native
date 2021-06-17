@@ -76,15 +76,27 @@ const DrawerCustom = (props) => {
             <C.Scroll>
                 {menus.map((menu, index) => (
                     <C.MenuButton key={index} onPress={() => navigation.navigate(menu.screen)}>
-                        <C.MenuSquare>
-
-                        </C.MenuSquare>
-                        <Icon name={menu.icon} size={20} color={colors.iconEngine} />
-                        <C.MenuButtonText>{menu.title}</C.MenuButtonText>
+                        <C.MenuSquare
+                            active={props.state.routes[props.state.index].name === menu.screen}
+                        ></C.MenuSquare>
+                        <Icon
+                            name={menu.icon}
+                            size={20}
+                            color={props.state.routes[props.state.index].name === menu.screen ?
+                                colors.violetIcon :
+                                colors.iconEngine
+                            }
+                        />
+                        <C.MenuButtonText
+                            active={props.state.routes[props.state.index].name === menu.screen}
+                        >
+                            {menu.title}
+                        </C.MenuButtonText>
                     </C.MenuButton>
                 ))}
                 <C.MenuButton onPress={handleLogout}>
-                    <C.MenuSquare></C.MenuSquare>
+                    <C.MenuSquare
+                    ></C.MenuSquare>
                     <Icon name="toggle-left" size={20} color={colors.iconEngine} />
                     <C.MenuButtonText>Sair</C.MenuButtonText>
                 </C.MenuButton>
